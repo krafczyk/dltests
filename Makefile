@@ -1,31 +1,38 @@
-CXXFLAGS := -g -I .
+CXXFLAGS := -g -I src
 
-all: test-1 test-2
+all: bin/test-1 bin/test-2
 
-test-1: test-1.o libA.so
-	g++ $(CXXFLAGS) -o $@ $< -L. -lA
+bindir:
+	if [ ! -d bin ]; then mkdir bin; fi;
 
-test-1.o: test-1.cpp
+libdir:
+	if [ ! -d lib ]; then mkdir lib; fi;
+
+bin/test-1: test-1.o lib/libA.so bindir
+	g++ $(CXXFLAGS) -o $@ $< -L lib -lA
+
+test-1.o: src/test-1.cpp
 	g++ $(CXXFLAGS) -c $^ -o $@
 
-test-2: test-2.o libA.so libB.so
-	g++ $(CXXFLAGS) -o $@ $< -L. -lA -lB
+bin/test-2: test-2.o lib/libA.so lib/libB.so bindir
+	g++ $(CXXFLAGS) -o $@ $< -L lib -lA -lB
 
-test-2.o: test-2.cpp
+test-2.o: src/test-2.cpp
 	g++ $(CXXFLAGS) -c $^ -o $@
 
-libA.so: A.o
-	g++ -shared $(CXXFLAGS) -o $@ $^
+lib/libA.so: A.o libdir
+	g++ -shared $(CXXFLAGS) -o $@ $<
 
-A.o: A.cpp
+A.o: src/A.cpp
 	g++ $(CXXFLAGS) -c $^ -o $@
 
-libB.so: B.o
-	g++ -shared $(CXXFLAGS) -o $@ $^
+lib/libB.so: B.o libdir
+	g++ -shared $(CXXFLAGS) -o $@ $<
 
-B.o: B.cpp
+B.o: src/B.cpp
 	g++ $(CXXFLAGS) -c $^ -o $@
 
 clean:
 	rm -f *.o *.so
-	rm -f test-1
+	rm -f bin/*
+	rm -f lib/*
