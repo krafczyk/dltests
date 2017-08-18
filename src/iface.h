@@ -10,4 +10,7 @@ class InterfaceClass {
 		virtual int getValue() = 0;
 };
 
+typedef InterfaceClass* creator_t();
+typedef void destroyer_t(InterfaceClass*);
+
 #endif

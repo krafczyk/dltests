@@ -1,6 +1,6 @@
 CXXFLAGS := -g -fPIC -I src
 
-all: bin/test-1 bin/test-2 bin/test-3 bin/test-4 bin/test-5 bin/test-6
+all: bin/test-1 bin/test-2 bin/test-3 bin/test-4 bin/test-5 bin/test-6 bin/test-7
 
 bindir:
 	if [ ! -d bin ]; then mkdir bin; fi;
@@ -42,6 +42,12 @@ bin/test-6: test-6.o lib/libiface_impl.so bindir
 	g++ $(CXXFLAGS) -o $@ $< -L lib -liface_impl
 
 test-6.o: src/test-6.cpp
+	g++ $(CXXFLAGS) -c $^ -o $@
+
+bin/test-7: test-7.o lib/libiface_impl.so bindir
+	g++ $(CXXFLAGS) -o $@ $< -ldl
+
+test-7.o: src/test-7.cpp
 	g++ $(CXXFLAGS) -c $^ -o $@
 
 lib/libAc.so: Ac.o libdir
