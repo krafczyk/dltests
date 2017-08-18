@@ -38,7 +38,3 @@ Direct linking with a library containing a class specialization definition
 
 DL loading and destroying of factory function for creating specialized class
 
-### test-8
-
-incorrect DL loading of a specialized class
-
