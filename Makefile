@@ -8,29 +8,29 @@ bindir:
 libdir:
 	if [ ! -d lib ]; then mkdir lib; fi;
 
-bin/test-1: test-1.o lib/libA.so bindir
-	g++ $(CXXFLAGS) -o $@ $< -L lib -lA
+bin/test-1: test-1.o lib/libAc.so bindir
+	gcc $(CXXFLAGS) -o $@ $< -L lib -lAc
 
-test-1.o: src/test-1.cpp
-	g++ $(CXXFLAGS) -c $^ -o $@
+test-1.o: src/test-1.c
+	gcc $(CXXFLAGS) -c $^ -o $@
 
-bin/test-2: test-2.o lib/libA.so lib/libB.so bindir
-	g++ $(CXXFLAGS) -o $@ $< -L lib -lA -lB
+bin/test-2: test-2.o lib/libAc.so lib/libBc.so bindir
+	gcc $(CXXFLAGS) -o $@ $< -L lib -lAc -lBc
 
-test-2.o: src/test-2.cpp
-	g++ $(CXXFLAGS) -c $^ -o $@
+test-2.o: src/test-2.c
+	gcc $(CXXFLAGS) -c $^ -o $@
 
-lib/libA.so: A.o libdir
-	g++ -shared $(CXXFLAGS) -o $@ $<
+lib/libAc.so: Ac.o libdir
+	gcc -shared $(CXXFLAGS) -o $@ $<
 
-A.o: src/A.cpp
-	g++ $(CXXFLAGS) -c $^ -o $@
+Ac.o: src/Ac.c
+	gcc $(CXXFLAGS) -c $^ -o $@
 
-lib/libB.so: B.o libdir
-	g++ -shared $(CXXFLAGS) -o $@ $<
+lib/libBc.so: Bc.o libdir
+	gcc -shared $(CXXFLAGS) -o $@ $<
 
-B.o: src/B.cpp
-	g++ $(CXXFLAGS) -c $^ -o $@
+Bc.o: src/Bc.c
+	gcc $(CXXFLAGS) -c $^ -o $@
 
 clean:
 	rm -f *.o *.so

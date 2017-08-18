@@ -1,6 +1,8 @@
 #ifndef B_HDR
 #define B_HDR
 
-int B(int b);
+#include "Ac.h"
+
+int Bc(int b);
 
 #endif
