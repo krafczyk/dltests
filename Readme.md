@@ -17,3 +17,7 @@ DL loading of simple function from library containing that library definition
 ## test-4
 
 DL loading of function with another function from another library inside it.
+
+## test-5
+
+Incorrect DL loading of function with another function from another library inside it. This should fail and result in a undefined symbol error.
