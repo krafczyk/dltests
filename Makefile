@@ -1,6 +1,6 @@
 CXXFLAGS := -g -I src
 
-all: bin/test-1 bin/test-2 bin/test-3
+all: bin/test-1 bin/test-2 bin/test-3 bin/test-4
 
 bindir:
 	if [ ! -d bin ]; then mkdir bin; fi;
@@ -24,6 +24,12 @@ bin/test-3: test-3.o lib/libAc.so bindir
 	gcc $(CXXFLAGS) -o $@ $< -ldl
 
 test-3.o: src/test-3.c
+	gcc $(CXXFLAGS) -c $^ -o $@
+
+bin/test-4: test-4.o lib/libAc.so bindir
+	gcc $(CXXFLAGS) -o $@ $< -ldl
+
+test-4.o: src/test-4.c
 	gcc $(CXXFLAGS) -c $^ -o $@
 
 lib/libAc.so: Ac.o libdir
